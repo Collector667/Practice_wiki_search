@@ -1,4 +1,8 @@
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Scanner;
+import java.awt.Desktop;
 
 class ConsoleInput {
     Scanner in = new Scanner(System.in);
@@ -11,6 +15,20 @@ class ConsoleInput {
 
     void close() {
         this.in.close();
+    }
+}
+
+class OpenInBrowser {
+    void wikipedia(int pageid) {
+        String link = "https://ru.wikipedia.org/w/api.php?action=query&list=search&utf8=&format=json&srsearch=";
+        link += String.valueOf(pageid);
+        try {
+            Desktop.getDesktop().browse(new URI(link));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 
